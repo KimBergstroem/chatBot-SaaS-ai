@@ -8,9 +8,8 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+- [Testing](#testing)
 - [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Introduction
@@ -70,28 +69,20 @@ Configure the chatbot by modifying the `.env` file and other configuration files
 - **Database settings**
 - **Custom response templates**
 
+## Testing
+
+Testing under development was used with POSTMAN application.
+
+<p align="center">
+  <img src="docs/testing.md/readme-img-postman-testing.png" />
+</p>
+
 ## API Documentation
 
 The API documentation is available at [API Docs](http://localhost:3000/api-docs) after starting the development server. It includes detailed information on all available endpoints and how to use them.
-
-## Contributing
-
-We welcome contributions to enhance the capabilities of SaaS Chatbot AI. To contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Contact
 
 For questions, suggestions, or issues, please send me PM.
 
 ---
-
-Thank you for using SaaS Chatbot AI!
