@@ -1,4 +1,4 @@
-# SaaS Chatbot AI
+# SaaS Chatbot AI - Full Documentation
 
 ## Table of Contents
 
