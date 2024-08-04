@@ -18,11 +18,23 @@ This document provides an overview of the front-end stack and workflow for this 
 
 - **HTTP Client**: Axios is used for making HTTP requests to the backend API. It simplifies sending and receiving data between the front end and the backend.
 
-### 4. React Router
+### 4. React Router DOM
 
-- **Routing**: React Router is used to manage routing and navigation within the React application. It enables dynamic rendering of components based on the URL.
+- **Routing**: React Router DOM is used to manage routing and navigation within the React application. It enables dynamic rendering of components based on the URL.
 
-### 5. Tailwind CSS (optional)
+### 5. MUI (Material-UI)
+
+- **UI Components**: MUI provides a set of React components that implement Google's Material Design, allowing for a consistent and visually appealing user interface.
+
+### 6. React Icons
+
+- **Icons**: React Icons provides a collection of popular icons from various icon libraries that can be easily used in React projects.
+
+### 7. React Toastify
+
+- **Notifications**: React Toastify provides an easy way to display toast notifications in your application, enhancing user experience with non-intrusive alerts.
+
+### 8. Tailwind CSS (optional)
 
 - **Styling Framework**: Tailwind CSS is a utility-first CSS framework that allows for rapid design and styling of components.
 
