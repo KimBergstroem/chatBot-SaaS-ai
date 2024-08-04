@@ -22,3 +22,7 @@ html,
 body {
   margin: 0;
 }
+
+.image-inverted {
+  filter: grayscale(100%);
+}
