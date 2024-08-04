@@ -1,30 +1,61 @@
-# React + TypeScript + Vite
+# FRONTEND DOCUMENTATION
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This document provides an overview of the front-end stack and workflow for this chatbot project. The front end is built using modern JavaScript libraries and frameworks, providing a user interface that interacts with the backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## Expanding the ESLint configuration
+### 1. React
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Library**: React is a JavaScript library for building user interfaces. It enables the creation of reusable UI components and efficiently manages the state and rendering of the application.
 
-- Configure the top-level `parserOptions` property like this:
+### 2. Vite
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Build Tool**: Vite is a build tool that provides a fast development experience and optimized builds. It is used to bundle and serve the front-end code.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 3. Axios (or Fetch)
+
+- **HTTP Client**: Axios is used for making HTTP requests to the backend API. It simplifies sending and receiving data between the front end and the backend.
+
+### 4. React Router
+
+- **Routing**: React Router is used to manage routing and navigation within the React application. It enables dynamic rendering of components based on the URL.
+
+### 5. Tailwind CSS (optional)
+
+- **Styling Framework**: Tailwind CSS is a utility-first CSS framework that allows for rapid design and styling of components.
+
+## Workflow
+
+### Project Setup
+
+1. **Initialize Project**:
+
+   ```bash
+   mkdir my-frontend
+   cd my-frontend
+   ```
+
+2. **Create a Vite Project**:
+
+   ```bash
+   npm create vite@latest .
+   ```
+
+3. **Install Dependencies**:
+
+   ```bash
+   npm install react-router-dom axios
+   ```
+
+   If using Tailwind CSS:
+
+   ```bash
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init
+   ```
+
+### Directory Structure
+
+More information is coming later
