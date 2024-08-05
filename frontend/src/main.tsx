@@ -5,6 +5,13 @@ import "./index.css";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.tsx";
+import { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+// Set default base URL for all Axios requests
+axios.defaults.baseURL = "http://localhost:5000/api/v1";
+// Include credentials (such as cookies) in cross-origin requests
+axios.defaults.withCredentials = true;
 
 const theme = createTheme({
   typography: {
@@ -18,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <AuthProvider>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          <Toaster position="top-right" />
           <App />
         </ThemeProvider>
       </BrowserRouter>
