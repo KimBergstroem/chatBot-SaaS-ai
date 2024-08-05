@@ -37,3 +37,7 @@ body {
   text-decoration: none;
   letter-spacing: 1px;
 }
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
