@@ -1,10 +1,14 @@
 import app from "./app.js";
 import { connectToDatabase } from "./db/connection.js";
+import { SERVER_PORT, SUCCESS_MESSAGES } from "./utils/constants.js";
 
-//connections and listeners
-const PORT = process.env.PORT || 5000;
+// Connections and listeners
+const PORT = SERVER_PORT || 5000;
+
 connectToDatabase()
   .then(() => {
-    app.listen(PORT, () => console.log("Server is running on port 5000"));
+    app.listen(PORT, () =>
+      console.log(`${SUCCESS_MESSAGES.OK} - Server is running on port ${PORT}`)
+    );
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.error("Database connection error:", error.message));

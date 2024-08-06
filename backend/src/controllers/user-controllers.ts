@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import {
+  ERROR_MESSAGES,
+  SUCCESS_MESSAGES,
+  COOKIE_NAME,
+  TOKEN_EXPIRATION,
+} from "../utils/constants.js";
 import User from "../models/User.js";
-import { COOKIE_NAME } from "../utils/constants.js";
 import { createToken } from "../utils/token-manager.js";
 import { hash, compare } from "bcrypt"; // Encrypt password
 
@@ -12,10 +17,13 @@ export const getAllUsers = async (
   try {
     //get all users
     const users = await User.find();
-    return res.status(200).json({ message: "OK", users });
+    return res.status(200).json({ message: SUCCESS_MESSAGES.OK, users });
   } catch (error) {
     console.error(error.message);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({
+      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      cause: error.message,
+    });
   }
 };
 
@@ -29,7 +37,9 @@ export const userSignUp = async (
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (existingUser)
-      return res.status(401).send({ message: "User already exists" });
+      return res
+        .status(401)
+        .send({ message: ERROR_MESSAGES.USER_ALREADY_EXISTS });
     const hashedPassword = await hash(password, 10); // Generating encoded password and store it in hashedPassword
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
@@ -42,7 +52,11 @@ export const userSignUp = async (
       path: "/",
     });
 
-    const token = createToken(user._id.toString(), user.email, "7d");
+    const token = createToken(
+      user._id.toString(),
+      user.email,
+      TOKEN_EXPIRATION
+    );
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
 
@@ -58,12 +72,17 @@ export const userSignUp = async (
       signed: true,
     });
 
-    return res
-      .status(201)
-      .json({ message: "OK", name: user.name, email: user.email });
+    return res.status(201).json({
+      message: SUCCESS_MESSAGES.OK,
+      name: user.name,
+      email: user.email,
+    });
   } catch (error) {
     console.error(error.message);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(500).json({
+      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      cause: error.message,
+    });
   }
 };
 
@@ -77,11 +96,15 @@ export const userLogin = async (
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(401).send({ message: "User does not exist" });
+      return res
+        .status(401)
+        .send({ message: ERROR_MESSAGES.USER_DOES_NOT_EXIST });
     }
     const isPasswordCorrect = await compare(password, user.password); // Gives boolean value
     if (!isPasswordCorrect) {
-      return res.status(403).send({ message: "Incorrect Password" });
+      return res
+        .status(403)
+        .send({ message: ERROR_MESSAGES.INCORRECT_PASSWORD });
     }
 
     //create token and store cookie
@@ -92,7 +115,11 @@ export const userLogin = async (
       path: "/",
     });
 
-    const token = createToken(user._id.toString(), user.email, "7d");
+    const token = createToken(
+      user._id.toString(),
+      user.email,
+      TOKEN_EXPIRATION
+    );
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
     /* 
@@ -107,12 +134,17 @@ export const userLogin = async (
       signed: true,
     });
 
-    return res
-      .status(200)
-      .json({ message: "OK", name: user.name, email: user.email });
+    return res.status(200).json({
+      message: SUCCESS_MESSAGES.OK,
+      name: user.name,
+      email: user.email,
+    });
   } catch (error) {
     console.error(error.message);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(500).json({
+      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      cause: error.message,
+    });
   }
 };
 
@@ -124,26 +156,31 @@ export const verifyUser = async (
   try {
     //user token verification
     if (!res.locals.jwtData || !res.locals.jwtData.id) {
-      return res.status(401).json({ message: "Invalid token data" });
+      return res
+        .status(401)
+        .json({ message: ERROR_MESSAGES.INVALID_TOKEN_DATA });
     }
     const user = await User.findById(res.locals.jwtData.id);
     if (!user) {
       return res
         .status(401)
-        .json({ message: "User not registered or token malfunctioned" });
+        .json({ message: ERROR_MESSAGES.USER_NOT_REGISTERED });
     }
     if (user._id.toString() !== res.locals.jwtData.id) {
-      return res.status(403).json({ message: "Permissions mismatch" });
+      return res
+        .status(403)
+        .json({ message: ERROR_MESSAGES.PERMISSIONS_MISMATCH });
     }
     return res.status(200).json({
-      message: "OK",
+      message: SUCCESS_MESSAGES.OK,
       name: user.name,
       email: user.email,
     });
   } catch (error) {
     console.error("Verification error:", error);
-    return res
-      .status(500)
-      .json({ message: "Internal Server Error", cause: error.message });
+    return res.status(500).json({
+      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      cause: error.message,
+    });
   }
 };

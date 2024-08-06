@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { COOKIE_NAME } from "./constants.js";
+import { COOKIE_NAME, ERROR_MESSAGES } from "./constants.js";
 
 export const createToken = (id: string, email: string, expiresIn: string) => {
   const payload = { id, email };
@@ -16,7 +16,9 @@ export const verifyToken = async (
   try {
     const token = req.signedCookies[`${COOKIE_NAME}`];
     if (!token || token.trim() === "") {
-      return res.status(401).json({ message: "Token Not Received" });
+      return res
+        .status(401)
+        .json({ message: ERROR_MESSAGES.TOKEN_NOT_RECEIVED });
     }
     await new Promise<void>((resolve, reject) => {
       jwt.verify(token, process.env.JWT_SECRET!, (err, decoded) => {
@@ -30,7 +32,7 @@ export const verifyToken = async (
     });
     return next();
   } catch (error) {
-    console.error("Token verification error:", error);
-    return res.status(401).json({ message: "Invalid token" });
+    console.error(error);
+    return res.status(401).json({ message: ERROR_MESSAGES.INVALID_TOKEN_DATA });
   }
 };

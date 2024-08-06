@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, ValidationChain, validationResult } from "express-validator";
+import { VALIDATION_MESSAGES } from "../utils/constants.js";
 
 export const validate = (validations: ValidationChain[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -18,14 +19,21 @@ export const validate = (validations: ValidationChain[]) => {
 };
 
 export const loginValidator = [
-  body("email").trim().isEmail().withMessage("Email is requreded"),
+  body("email")
+    .trim()
+    .isEmail()
+    .withMessage(VALIDATION_MESSAGES.EMAIL_REQUIRED),
   body("password")
     .trim()
     .isLength({ min: 8 })
-    .withMessage("Password need to be min 8 characters"),
+    .withMessage(VALIDATION_MESSAGES.PASSWORD_LENGTH),
 ];
 
 export const signupValidator = [
-  body("name").notEmpty().withMessage("Name is requreded"),
+  body("name").notEmpty().withMessage(VALIDATION_MESSAGES.NAME_REQUIRED),
   ...loginValidator,
+];
+
+export const chatCompletionValidator = [
+  body("message").notEmpty().withMessage(VALIDATION_MESSAGES.MESSAGE_REQUIRED),
 ];
