@@ -15,6 +15,7 @@ export const ERROR_MESSAGES = {
 // Success Messages
 export const SUCCESS_MESSAGES = {
   OK: "OK SUCCESS",
+  CHAT_COMPLETION_SUCCESS: "Chat completion successful",
   DB_CONNECTED: "Connected to MongoDB!",
   DB_DISCONNECTED: "Disconnected from MongoDB!",
 };
