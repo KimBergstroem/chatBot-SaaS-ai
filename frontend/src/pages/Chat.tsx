@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Avatar, Typography, Button } from "@mui/material";
+import { Box, Avatar, Typography, Button, IconButton } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
+import { IoMdSend } from "react-icons/io";
 
 const chatMessages = [
   { role: "assistant", content: "Hello mister" },
@@ -41,7 +42,7 @@ const Chat = () => {
             display: "flex",
             width: "100%",
             height: "60vh",
-            bgcolor: "#004d5612",
+            bgcolor: "#141414",
             borderRadius: 5,
             flexDirection: "column",
             mx: 3,
@@ -57,10 +58,11 @@ const Chat = () => {
             {auth?.user?.name[0]}
             {auth?.user?.name.split(" ")[1][0]}
           </Avatar>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans" }}>
-            You are talking to the gamemaster ChatBOT
+          <Typography sx={{ mx: "auto" }}>
+            You are talking to the <br />
+            gamemaster ChatBOT
           </Typography>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans", my: 4, p: 3 }}>
+          <Typography sx={{ mx: "auto", my: 4, p: 3 }}>
             You can ask some questions related to Gaming, as this application
             are mainly for gaming.
           </Typography>
@@ -115,6 +117,34 @@ const Chat = () => {
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
         </Box>
+        <div
+          style={{
+            width: "90%",
+            padding: "20px",
+            borderRadius: 8,
+            backgroundColor: "#141414",
+            display: "flex",
+            marginTop: 15,
+          }}>
+          {" "}
+          <input
+            type="text"
+            style={{
+              width: "90%",
+              backgroundColor: "transparent",
+              padding: "10px",
+              border: "none",
+              outline: "none",
+              color: "white",
+              fontSize: "20px",
+              fontWeight: "600",
+              borderRadius: 3,
+            }}
+          />
+          <IconButton sx={{ ml: "auto", color: "white" }}>
+            <IoMdSend />
+          </IconButton>
+        </div>
       </Box>
     </Box>
   );
