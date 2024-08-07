@@ -53,7 +53,6 @@ const ChatItem = ({
               <Typography sx={{ fontSize: "20px" }}>{block}</Typography>
             )
           )}
-        ;
       </Box>
     </Box>
   ) : (
@@ -77,7 +76,6 @@ const ChatItem = ({
               <Typography sx={{ fontSize: "20px" }}>{block}</Typography>
             )
           )}
-        ;
       </Box>
     </Box>
   );
