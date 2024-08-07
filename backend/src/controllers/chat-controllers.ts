@@ -34,9 +34,7 @@ export const generateChatCompletion = async (
     });
     user.chats.push(chatResponse.data.choices[0].message);
     await user.save();
-    return res
-      .status(200)
-      .json({ message: SUCCESS_MESSAGES.CHAT_COMPLETION_SUCCESS });
+    return res.status(200).json({ chats: user.chats });
     //get latest response
   } catch (error) {
     console.log(error);
