@@ -27,7 +27,7 @@ const Logo = () => {
           fontWeight: "800",
           textShadow: "2px 2px 20px #000",
         }}>
-        <span style={{ fontSize: "20px" }}>MERN</span>-Gaming GPT
+        <span style={{ fontSize: "24px" }}>GameBot</span>-Nexus
       </Typography>
     </div>
   );
