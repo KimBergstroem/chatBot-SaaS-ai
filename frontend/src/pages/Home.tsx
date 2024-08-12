@@ -1,8 +1,13 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import TypingAnim from "../components/typer/TypingAnimation";
+import Footer from "../components/footer/Footer";
+import { GrChatOption } from "react-icons/gr";
 
 const Home = () => {
+  const theme = useTheme();
+  const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box width={"100%"} height={"100%"}>
       <Box
@@ -18,7 +23,10 @@ const Home = () => {
           sx={{
             width: "100%",
             display: "flex",
-            flexDirection: { md: "row", xs: "column" },
+            flexDirection: { md: "row", sm: "column", xs: "column" },
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "auto",
             gap: 2,
             my: 4,
           }}>
@@ -28,8 +36,9 @@ const Home = () => {
               color: "#fff",
               display: "inline-block",
               textShadow: "1px 1px 20px #000",
+              textAlign: "center",
             }}>
-            GameBot Nexus,
+            GameIn Nexus
           </Box>
           <Box>
             <TypingAnim />
@@ -43,34 +52,38 @@ const Home = () => {
             gap: 5,
             my: 10,
           }}>
-          <img
-            src="vite.svg"
-            alt="vite"
-            style={{ width: "200px", margin: "auto" }}
+          <GrChatOption
+            style={{
+              width: "200px",
+              height: "200px",
+              fontSize: "200px",
+              margin: "auto",
+            }}
           />
           <img
             className="image-inverted rotate"
-            src="vite.svg"
-            alt="vite"
+            src="openai.png"
+            alt="openai logo"
             style={{ width: "200px", margin: "auto" }}
           />
         </Box>
         <Box sx={{ display: "flex", width: "100%", mx: "auto" }}>
           <img
-            src="vite.svg"
-            alt="vite"
+            src="chat.png"
+            alt="chat imgage"
             style={{
               display: "flex",
               margin: "auto",
-              width: "60%",
+              width: isBelowMd ? "80%" : "60%",
               borderRadius: 20,
-              boxShadow: "-5px -5px 105px #F88379",
+              boxShadow: "-5px -5px 55px #f5948c",
               marginTop: 20,
               marginBottom: 20,
             }}
           />
         </Box>
       </Box>
+      <Footer />
     </Box>
   );
 };
