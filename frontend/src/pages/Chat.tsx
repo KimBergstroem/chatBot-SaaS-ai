@@ -1,11 +1,15 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import { Box, Avatar, Typography, Button, IconButton } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { sendChatRequest } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
-import { getUserChats } from "../helpers/api-communicator";
+import { useNavigate } from "react-router-dom";
+import {
+  getUserChats,
+  deleteUserChats,
+  sendChatRequest,
+} from "../helpers/api-communicator";
 
 type Message = {
   role: "user" | "assistant";
@@ -13,6 +17,7 @@ type Message = {
 };
 
 const Chat = () => {
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -26,6 +31,17 @@ const Chat = () => {
     const chatData = await sendChatRequest(content);
     setChatMessages([...chatData.chats]);
   };
+  const handleDeleteChats = async () => {
+    try {
+      toast.loading("Deleting Chats", { id: "deletechats" });
+      await deleteUserChats();
+      setChatMessages([]);
+      toast.success("Deleted Chats Successfully", { id: "deletechats" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete chats", { id: "deletechats" });
+    }
+  };
   useLayoutEffect(() => {
     if (auth?.isLoggedIn && auth.user) {
       toast.loading("Loading chats", { id: "loadchats" });
@@ -38,6 +54,11 @@ const Chat = () => {
           console.log(err);
           toast.error("Loading failed", { id: "loadchats" });
         });
+    }
+  }, [auth]);
+  useEffect(() => {
+    if (!auth?.user) {
+      return navigate("/login");
     }
   }, [auth]);
   return (
@@ -86,6 +107,7 @@ const Chat = () => {
             are mainly for gaming.
           </Typography>
           <Button
+            onClick={handleDeleteChats}
             sx={{
               width: "200px",
               my: "auto",

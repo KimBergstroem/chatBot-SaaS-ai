@@ -73,3 +73,34 @@ export const sendChatsToUser = async (
     });
   }
 };
+
+export const deleteChats = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    //user token verification
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: ERROR_MESSAGES.USER_NOT_REGISTERED });
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res
+        .status(403)
+        .json({ message: ERROR_MESSAGES.PERMISSIONS_MISMATCH });
+    }
+    //@ts-ignore
+    user.chats = [];
+    await user.save();
+    return res.status(200).json({ message: SUCCESS_MESSAGES.OK });
+  } catch (error) {
+    console.error("Error to send chat to user:", error);
+    return res.status(500).json({
+      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      cause: error.message,
+    });
+  }
+};
