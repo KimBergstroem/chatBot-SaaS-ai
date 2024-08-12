@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Logo from "./shared/Logo";
 import { useAuth } from "../context/AuthContext";
 import NavLink from "./shared/NavLink";
+import { Box } from "@mui/material";
 
 const Header = () => {
   const auth = useAuth();
@@ -13,20 +14,21 @@ const Header = () => {
       <Toolbar sx={{ display: "flex" }}>
         <Logo />
 
-        <div>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 1,
+            alignItems: "center",
+          }}>
           {auth?.isLoggedIn ? (
             <>
+              <NavLink bg="#F88379" to="/chat" text="Chat" textColor="white" />
               <NavLink
-                bg="#F88379"
-                to="/chat"
-                text="Go To Chat"
-                textColor="black"
-              />
-              <NavLink
-                bg="#008080"
+                bg="#fff"
                 to="/"
                 text="Logout"
-                textColor="white"
+                textColor="black"
                 onClick={auth.logout}
               />
             </>
@@ -38,15 +40,10 @@ const Header = () => {
                 text="Login"
                 textColor="white"
               />
-              <NavLink
-                bg="#008080"
-                to="/signup"
-                text="Signup"
-                textColor="white"
-              />
+              <NavLink bg="#fff" to="/signup" text="Signup" textColor="black" />
             </>
           )}
-        </div>
+        </Box>
       </Toolbar>
     </AppBar>
   );
