@@ -95,9 +95,16 @@ const Chat = () => {
               color: "black",
               fontWeight: 700,
             }}>
-            {auth?.user?.name[0]}
-            {auth?.user?.name.split(" ")[1][0]}
+            {auth?.user?.name ? (
+              <>
+                {auth?.user?.name[0]}
+                {auth?.user?.name.split(" ")[1]?.[0] || ""}
+              </>
+            ) : (
+              "U"
+            )}
           </Avatar>
+          <p>{auth?.user?.name}</p>
           <Typography sx={{ mx: "auto" }}>
             You are talking to the <br />
             gamemaster ChatBOT
@@ -155,7 +162,7 @@ const Chat = () => {
             scrollBehavior: "smooth",
           }}>
           {chatMessages.map((chat, index) => (
-            //@ts-expect-error
+            //@ts-ignore
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
         </Box>
@@ -179,7 +186,7 @@ const Chat = () => {
               border: "none",
               outline: "none",
               color: "white",
-              fontSize: "20px",
+              fontSize: "16px",
               fontWeight: "600",
               borderRadius: 3,
             }}
