@@ -31,7 +31,12 @@ const Login = () => {
   return (
     <Box width={"100%"} height={"100%"} display={"flex"} flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
-        <img src="vite.svg" alt="Login logo" style={{ width: "300px" }} />
+        <img
+          className="image-inverted"
+          src="logo.png"
+          alt="Login logo"
+          style={{ width: "300px", height: "300px" }}
+        />
       </Box>
       <Box
         display={"flex"}
