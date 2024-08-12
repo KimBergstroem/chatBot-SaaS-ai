@@ -1,9 +1,9 @@
 import app from "./app.js";
 import { connectToDatabase } from "./db/connection.js";
-import { SERVER_PORT, SUCCESS_MESSAGES } from "./utils/constants.js";
+import { SUCCESS_MESSAGES } from "./utils/constants.js";
 
-// Connections and listeners
-const PORT = SERVER_PORT || 5000;
+// Dynamic port assignment
+const PORT = process.env.PORT || 5000;
 
 connectToDatabase()
   .then(() => {
