@@ -14,10 +14,10 @@ const allowedOrigin =
     ? process.env.VITE_API_ORIGIN_PROD
     : process.env.VITE_API_ORIGIN_LOCAL;
 
-//middlewares
+// Middlewares
 app.use(
   cors({
-    origin: "https://chat-bot-saa-s-ai-frontend.vercel.app",
+    origin: allowedOrigin,
     methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
     credentials: true,
   })
@@ -26,9 +26,13 @@ app.use(
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
+// Log requests in non-production environments
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
+
+// Handle preflight requests
+app.options("*", cors());
 
 app.use("/api/v1", appRouter);
 
