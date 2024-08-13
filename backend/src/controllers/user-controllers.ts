@@ -8,6 +8,7 @@ import {
 import User from "../models/User.js";
 import { createToken } from "../utils/token-manager.js";
 import { hash, compare } from "bcrypt"; // Encrypt password
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
 export const getAllUsers = async (
   req: Request,
@@ -47,7 +48,7 @@ export const userSignUp = async (
     //create token and store cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
     });
@@ -66,7 +67,7 @@ export const userSignUp = async (
     */
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "localhost",
+      domain: COOKIE_DOMAIN,
       expires,
       httpOnly: true,
       signed: true,
@@ -110,7 +111,7 @@ export const userLogin = async (
     //create token and store cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
     });
@@ -128,7 +129,7 @@ export const userLogin = async (
     */
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "localhost",
+      domain: COOKIE_DOMAIN,
       expires,
       httpOnly: true,
       signed: true,
@@ -212,7 +213,7 @@ export const userLogout = async (
     //Clear user cookies when logging out
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
+      domain: COOKIE_DOMAIN,
       signed: true,
       path: "/",
     });
