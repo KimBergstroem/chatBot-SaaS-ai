@@ -17,7 +17,7 @@ const allowedOrigin =
 //middlewares
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: "https://chat-bot-saa-s-ai-frontend.vercel.app",
     methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
     credentials: true,
   })
