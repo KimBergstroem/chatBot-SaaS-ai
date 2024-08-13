@@ -9,9 +9,7 @@ import { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 // Set default base URL for all Axios requests
-const baseURL = import.meta.env.PROD
-  ? import.meta.env.VITE_API_BASE_URL_PROD
-  : import.meta.env.VITE_API_BASE_URL_LOCAL;
+const baseURL = import.meta.env.VITE_API_BASE_URL_PROD;
 
 axios.defaults.baseURL = baseURL;
 
