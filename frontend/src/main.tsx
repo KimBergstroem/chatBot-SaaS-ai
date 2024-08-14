@@ -9,9 +9,7 @@ import { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 // Set default base URL for all Axios requests
-const baseURL = import.meta.env.VITE_API_BASE_URL_PROD;
-
-axios.defaults.baseURL = baseURL;
+axios.defaults.baseURL = "https://chatbot-server-kohl.vercel.app/api/v1";
 
 // Include credentials (such as cookies) in cross-origin requests
 axios.defaults.withCredentials = true;
