@@ -2,6 +2,7 @@
 export const ERROR_MESSAGES = {
   USER_NOT_REGISTERED: "User not registered or token malfunctioned",
   TOKEN_NOT_RECEIVED: "Token Not Received",
+  TOKEN_EXPIRED: "Token Expired",
   INVALID_TOKEN_DATA: "Invalid token data",
   PERMISSIONS_MISMATCH: "Permissions mismatch",
   INTERNAL_SERVER_ERROR: "Internal Server Error",

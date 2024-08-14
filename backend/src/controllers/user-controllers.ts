@@ -19,11 +19,19 @@ export const getAllUsers = async (
     const users = await User.find();
     return res.status(200).json({ message: SUCCESS_MESSAGES.OK, users });
   } catch (error) {
-    console.error(error.message);
-    return res.status(200).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error occurred:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
 
@@ -78,11 +86,19 @@ export const userSignUp = async (
       email: user.email,
     });
   } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error occurred:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
 
@@ -140,11 +156,19 @@ export const userLogin = async (
       email: user.email,
     });
   } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error occurred:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
 
@@ -177,11 +201,19 @@ export const verifyUser = async (
       email: user.email,
     });
   } catch (error) {
-    console.error("Verification error:", error);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error occurred:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
 
@@ -223,10 +255,18 @@ export const userLogout = async (
       email: user.email,
     });
   } catch (error) {
-    console.error("Verification error:", error);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error occurred:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };

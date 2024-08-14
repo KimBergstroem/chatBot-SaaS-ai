@@ -32,7 +32,9 @@ export const generateChatCompletion = async (
       model: "gpt-3.5-turbo",
       messages: chats,
     });
-    user.chats.push(chatResponse.data.choices[0].message);
+    if (chatResponse.data.choices[0].message) {
+      user.chats.push(chatResponse.data.choices[0].message);
+    }
     await user.save();
     return res.status(200).json({ chats: user.chats });
     //get latest response
@@ -66,11 +68,19 @@ export const sendChatsToUser = async (
       .status(200)
       .json({ message: SUCCESS_MESSAGES.OK, chats: user.chats });
   } catch (error) {
-    console.error("Error to send chat to user:", error);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error sending chat to user:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
 
@@ -97,10 +107,18 @@ export const deleteChats = async (
     await user.save();
     return res.status(200).json({ message: SUCCESS_MESSAGES.OK });
   } catch (error) {
-    console.error("Error to send chat to user:", error);
-    return res.status(500).json({
-      message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-      cause: error.message,
-    });
+    if (error instanceof Error) {
+      console.error("Error deleting chat:", error.message);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: error.message,
+      });
+    } else {
+      console.error("Unknown error:", error);
+      return res.status(500).json({
+        message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+        cause: "An unknown error occurred",
+      });
+    }
   }
 };
